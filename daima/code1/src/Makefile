@@ -40,6 +40,11 @@ TARGET=../code1
 CC = gcc
 CCFLAGS=-g -Wall ${LIBS} ${GTK_INC}
 
+#这个命令怪怪的，怎么会在同一个目录下生成两个Obj文件夹
+#而且还删不掉，显示“无法删除 该项目不在 请确认该项目的位置，然后重试”
+#在msys2的命令行用 rm -fr Obj\ \ / 总算删掉了
+#所以还是手工新建一下吧 我也不知道正确的操作应该是怎么样的
+
 #$(shell mkdir -p "$(OBJ_DIR)")
 
 all:${TARGET}
