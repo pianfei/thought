@@ -16,7 +16,10 @@ int cardiology2();
 
 int main(int argc, char *argv[])
 {
-    printf("Hello World\n");
+    int a;
+
+    a = 2;
+    printf("Hello World %d\n",a);
     cardiology1(7,3);
     cardiology2();
     return 0;

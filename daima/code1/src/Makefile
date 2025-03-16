@@ -1,6 +1,7 @@
 
 OBJ_DIR = ../Obj
-SRC = main.c cardiology.cc
+SRC = main.c 
+CC_SRC = cardiology.cc
 
 #此Makefile要把D:\msys64\mingw64\bin中的，用来做调试gtk源码
 #libgdk-3-0.dll改为libgdk-3-0-.dll
@@ -13,6 +14,10 @@ CAIRO_DIR = /d/source/msys2package/source/mingw-w64-cairo-1.16.0-1/src/build-x86
 
 # 把.c后缀替换为.o，并加上目录        
 OBJ = ${patsubst %.c, ${OBJ_DIR}/%.o, ${SRC}}
+
+CC_OBJ = ${patsubst %.cc, ${OBJ_DIR}/%.o, ${CC_SRC}}
+
+OBJ += ${CC_OBJ}
 
 INC = ${wildcard  *.h}
 
@@ -49,13 +54,17 @@ CCFLAGS=-g -Wall ${LIBS} ${GTK_INC}
 
 all:${TARGET}
 
-${TARGET}: ${OBJ} 
+${TARGET}: ${OBJ}  
 	${CC} $^ -o $@ ${LIBS} -lwinmm 
 	@echo "Compile done."
     
 
 ${OBJ_DIR}/%.o:%.c ${INC}
 	@echo "Compiling $< ==> $@"
+	${CC} ${CCFLAGS} -c $< -o $@
+	
+${OBJ_DIR}/%.o: %.cc ${INC}
+	@echo "Compiling C++ $< ==> $@"
 	${CC} ${CCFLAGS} -c $< -o $@
 
     
