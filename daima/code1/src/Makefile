@@ -1,6 +1,6 @@
 
 OBJ_DIR = ../Obj
-SRC = main.c 
+SRC = main.c  algorithm.c
 CC_SRC = cardiology.cc
 
 #此Makefile要把D:\msys64\mingw64\bin中的，用来做调试gtk源码
