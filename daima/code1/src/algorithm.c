@@ -36,6 +36,9 @@ Pair rcAdd(Pair rc, long v, long c) {
 // 计算第p列起始位置
 Pair pthStart(long p, long r, long c) {
     Pair ret;
+    //如果p=2，也就是做为第3列被收起了，前面收了2列,假设是7行3列，那么前面收了14个数字
+    //重排后，收到的那一列的起始位置位于第14号位置（从0开始数起）
+    //即第14/3=4行，第14%3=2列
     ret.row = (r * p) / c;
     ret.col = (r * p) % c;
     return ret;
