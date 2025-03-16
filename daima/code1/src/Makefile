@@ -1,6 +1,6 @@
 
 OBJ_DIR = ../Obj
-SRC = main.c
+SRC = main.c cardiology.cc
 
 #此Makefile要把D:\msys64\mingw64\bin中的，用来做调试gtk源码
 #libgdk-3-0.dll改为libgdk-3-0-.dll
@@ -37,7 +37,7 @@ GTK_INC = -pthread -mms-bitfields -I/mingw64/include/gtk-3.0 \
 
 TARGET=../code1
 #CC=/d/msys64/mingw64/bin/x86_64-w64-mingw32-gcc.exe
-CC = gcc
+CC = g++
 CCFLAGS=-g -Wall ${LIBS} ${GTK_INC}
 
 #这个命令怪怪的，怎么会在同一个目录下生成两个Obj文件夹

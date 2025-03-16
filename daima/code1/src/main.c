@@ -11,9 +11,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void cardiology1(long r,long c);
+int cardiology2();
 
 int main(int argc, char *argv[])
 {
     printf("Hello World\n");
+    cardiology1(7,3);
+    cardiology2();
     return 0;
 }
