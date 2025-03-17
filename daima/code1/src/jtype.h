@@ -13,5 +13,6 @@ typedef unsigned int   u32;
 typedef unsigned short u16;
 
 #define log_a(format,...) printf(format"\n",## __VA_ARGS__)
+#define log_b(format,...) printf(format,## __VA_ARGS__)
 
 #endif /* JTYPE_H_ */

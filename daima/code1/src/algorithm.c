@@ -97,6 +97,15 @@ void Cardiology1(int r, int c)
             rcAdd(&restart, &start, c);
             rcAdd(&restart, &end, c);
             if(j==2){
+                if(iterationTime==0){
+                    for(i=0;i<start.row*c+end.col;i++)
+                    {
+                        log_b("%d ",aBuf[i]);
+                        if(i%c==c-1){
+                            log_a("");
+                        }
+                    }
+                }
                 log_a("start:%d %d",start.row,start.col);
                 log_a("end:%d %d",end.row,end.col);
             }
