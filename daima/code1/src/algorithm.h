@@ -8,7 +8,7 @@
 #ifndef ALGORITHM_H_
 #define ALGORITHM_H_
 
-void Cardiology1(long r, long c);
-int Cardiology2(int64_t R, int64_t  C);
+void Cardiology1(int r, int c);
+int Cardiology2(int R, int C) ;
 
 #endif /* ALGORITHM_H_ */

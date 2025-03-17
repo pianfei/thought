@@ -10,10 +10,11 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <inttypes.h>
-#include "algorithm.h"
+//#include "algorithm.h"
+#include "jtype.h"
 
 typedef struct {
-    long row, col;
+    int row, col;
 } Pair;
 
 typedef struct {
@@ -22,7 +23,7 @@ typedef struct {
 } AnsStru;
 
 // 计算位置加上v后的新位置
-Pair rcAdd(Pair rc, long v, long c) {
+Pair rcAdd(Pair rc, int v, int c) {
     rc.row += v / c;
     v %= c;
     rc.col += v;
@@ -56,10 +57,10 @@ long calDist(Pair rc, long r, long c) {
     return minr + minc;
 }
 
-void Cardiology1(long r, long c) {
+void Cardiology1(int r, int c) {
     AnsStru* stablePos = (AnsStru*)malloc(sizeof(AnsStru) * c);
     if (!stablePos) {
-        printf("Memory allocation failed\n");
+        log_a("Memory allocation failed\n");
         return;
     }
 
@@ -104,13 +105,13 @@ void Cardiology1(long r, long c) {
     }
 
     if (ans != -1) {
-        printf("%ld %ld %ld %d\n",
+        log_a("%d %d %d %d",
             ans + 1,
             stablePos[ans].rc.row + 1,
             stablePos[ans].rc.col + 1,
             stablePos[ans].iterationTimes);
     } else {
-        printf("No stable position found.\n");
+        log_a("No stable position found.");
     }
 
     free(stablePos);
@@ -119,9 +120,9 @@ void Cardiology1(long r, long c) {
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)>(b)?(a):(b))
 
-int Cardiology2(int64_t R, int64_t  C) {
+int Cardiology2(int R, int C) {
         // ret = {距离, p, i, j, 迭代次数s}
-        int64_t ret[5] = {1000000000, 0, 0, 0, 0};
+        int ret[5] = {100000, 0, 0, 0, 0};
 
         for (int64_t p = 0; p < C; p++) {
             int64_t i = -1, j = -1, s1 = -1, s2 = 0;
@@ -170,8 +171,7 @@ int Cardiology2(int64_t R, int64_t  C) {
                 for (int idx = 0; idx < 5; idx++)
                     ret[idx] = cur[idx];
         }
-        printf("%" PRId64 " %" PRId64 " %" PRId64 " %" PRId64 "\n",
-               ret[1], ret[2], ret[3], ret[4]);
+        printf("%d %d %d %d",ret[1], ret[2], ret[3], ret[4]);
 
     return 0;
 }
