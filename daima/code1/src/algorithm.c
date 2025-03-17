@@ -14,6 +14,8 @@
 
 typedef struct {
     int row, col;
+    u8 *pData;
+    u8 k;
 } Pair;
 
 typedef struct {
@@ -35,6 +37,7 @@ void rcAdd(Pair *pIn, Pair *pOut, int c) {
         pOut->col %= c;
         pOut->row += 1;
     }
+
 }
 
 // 计算第p列起始位置
@@ -44,6 +47,7 @@ void pthStart(Pair *pStart,long p, long r, long c) {
     //即第14/3=4行，第14%3=2列
     pStart->row = (r * p) / c;
     pStart->col = (r * p) % c;
+    pStart->k = p;
 }
 
 // 计算距离中心点位置的曼哈顿距离
@@ -64,16 +68,21 @@ void Cardiology1(int r, int c)
     Pair start = {0, 0};
     Pair end = {r - 1, c - 1};
     Pair restart = {0, 0};
-    int p;
+    int j,i;
     int iterationTime = 0;
+    u8 aBuf[21];
 
     stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
+    for(i=0;i<r*c;i++)
+    {
+        aBuf[i] = i;
+    }
 
-    for(p=0;p<c;p++)
+    for(j=0;j<c;j++)
     {
         iterationTime = 0;
 
-        pthStart(&restart,p, r, c);
+        pthStart(&restart,j, r, c);
 
         start.col = 0;
         start.row = 0;
@@ -86,6 +95,10 @@ void Cardiology1(int r, int c)
             // 更新start和end (范围收缩)
             rcAdd(&restart, &start, c);
             rcAdd(&restart, &end, c);
+            if(j==2){
+                log_a("start:%d %d",start.row,start.col);
+                log_a("end:%d %d",end.row,end.col);
+            }
 
             if (oS.row == start.row && oS.col == start.col &&
                 oE.row == end.row && oE.col == end.col) {
@@ -94,12 +107,12 @@ void Cardiology1(int r, int c)
             iterationTime++;
         }
         if (start.row == end.row && start.col == end.col) {
-            stablePos[p].rc = start;
+            stablePos[j].rc = start;
         } else {
-            stablePos[p].rc.row = -1;
-            stablePos[p].rc.col = -1;
+            stablePos[j].rc.row = -1;
+            stablePos[j].rc.col = -1;
         }
-        stablePos[p].iterationTimes = iterationTime;
+        stablePos[j].iterationTimes = iterationTime;
     }
 
     int ans = -1;

@@ -25,10 +25,11 @@ int main(int argc, char *argv[])
     a = 2;
     printf("Hello World %d\n",a);
     Cardiology1(7,3);
-    Cardiology2(8,3);
-    Cardiology1(8,3);
-    printf("\n");
-    Cardiology1(95,912669);//456335 48 456335 2
+//    Cardiology2(8,3);
+//    Cardiology1(8,3);
+//    printf("\n");
+//    Cardiology1(95,912669);//456335 48 456335 2
+
     //cardiology1(7,3);
     //cardiology2();
 
