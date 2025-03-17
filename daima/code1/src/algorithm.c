@@ -84,6 +84,7 @@ void Cardiology1(int r, int c)
 
         pthStart(&restart,j, r, c);
 
+        //start是第一个数字，end是最后一个数字
         start.col = 0;
         start.row = 0;
         end.row = r-1;
