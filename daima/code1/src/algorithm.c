@@ -88,6 +88,7 @@ void Cardiology1(int r, int c)
         start.row = 0;
         end.row = r-1;
         end.col = c-1;
+        log_a("restart:%d %d",restart.row,restart.col);
 
         while (1) {
             Pair oS = start, oE = end;
