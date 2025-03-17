@@ -64,16 +64,16 @@ void Cardiology1(int r, int c)
     Pair start = {0, 0};
     Pair end = {r - 1, c - 1};
     Pair restart = {0, 0};
-    int i;
+    int p;
     int iterationTime = 0;
 
     stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
 
-    for(i=0;i<c;i++)
+    for(p=0;p<c;p++)
     {
         iterationTime = 0;
 
-        pthStart(&restart,i, r, c);
+        pthStart(&restart,p, r, c);
 
         start.col = 0;
         start.row = 0;
@@ -94,12 +94,12 @@ void Cardiology1(int r, int c)
             iterationTime++;
         }
         if (start.row == end.row && start.col == end.col) {
-            stablePos[i].rc = start;
+            stablePos[p].rc = start;
         } else {
-            stablePos[i].rc.row = -1;
-            stablePos[i].rc.col = -1;
+            stablePos[p].rc.row = -1;
+            stablePos[p].rc.col = -1;
         }
-        stablePos[i].iterationTimes = iterationTime;
+        stablePos[p].iterationTimes = iterationTime;
     }
 
     int ans = -1;
