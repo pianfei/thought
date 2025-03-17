@@ -64,9 +64,6 @@ void Cardiology1(int r, int c)
     Pair start = {0, 0};
     Pair end = {r - 1, c - 1};
     Pair restart = {0, 0};
-    Pair *pReStart = &restart;
-//    Pair *pStart = &start;
-//    Pair *pEnd = &end;
     int i;
 
     stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
@@ -74,7 +71,7 @@ void Cardiology1(int r, int c)
     for(i=0;i<c;i++)
     {
         int iterationTime = 0;
-        pthStart(pReStart,i, r, c);
+        pthStart(&restart,i, r, c);
 
         start.col = 0;
         start.row = 0;
@@ -85,8 +82,8 @@ void Cardiology1(int r, int c)
             Pair oS = start, oE = end;
 
             // 更新start和end (范围收缩)
-            rcAdd(pReStart, &start, c);
-            rcAdd(pReStart, &end, c);
+            rcAdd(&restart, &start, c);
+            rcAdd(&restart, &end, c);
 
             if (oS.row == start.row && oS.col == start.col &&
                 oE.row == end.row && oE.col == end.col) {
