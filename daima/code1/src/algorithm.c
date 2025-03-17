@@ -93,12 +93,12 @@ void Cardiology1(int r, int c)
         while (1) {
             Pair oS = start, oE = end;
 
-            // 更新start和end (范围收缩)
+            //这个start和end到底代表的是什么呀
             rcAdd(&restart, &start, c);
             rcAdd(&restart, &end, c);
             if(j==2){
                 if(iterationTime==0){
-                    for(i=0;i<start.row*c+end.col;i++)
+                    for(i=0;i<start.row*c+start.col;i++)
                     {
                         log_b("%d ",aBuf[i]);
                         if(i%c==c-1){
