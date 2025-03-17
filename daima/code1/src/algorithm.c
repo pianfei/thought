@@ -30,12 +30,12 @@ void rcAdd(Pair *pIn, Pair *pOut, int c) {
     pOut->row = pIn->row;
     pOut->col = pIn->col;
 
-    pOut->row += v/c;
+    pOut->row += v/c;//为什么这里加了
     v %= c;
     pOut->col += v;
     if (pOut->col>=c) {
         pOut->col %= c;
-        pOut->row += 1;
+        pOut->row += 1;//这里还要+1
     }
 
 }
