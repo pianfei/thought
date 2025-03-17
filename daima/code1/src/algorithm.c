@@ -169,7 +169,7 @@ int Cardiology2(int R, int C) {
                 for (int idx = 0; idx < 5; idx++)
                     ret[idx] = cur[idx];
         }
-        printf("%d %d %d %d",ret[1], ret[2], ret[3], ret[4]);
+        log_a("%d %d %d %d",ret[1], ret[2], ret[3], ret[4]);
 
     return 0;
 }
