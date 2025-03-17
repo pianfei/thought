@@ -65,12 +65,14 @@ void Cardiology1(int r, int c)
     Pair end = {r - 1, c - 1};
     Pair restart = {0, 0};
     int i;
+    int iterationTime = 0;
 
     stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
 
     for(i=0;i<c;i++)
     {
-        int iterationTime = 0;
+        iterationTime = 0;
+
         pthStart(&restart,i, r, c);
 
         start.col = 0;
@@ -87,7 +89,7 @@ void Cardiology1(int r, int c)
 
             if (oS.row == start.row && oS.col == start.col &&
                 oE.row == end.row && oE.col == end.col) {
-                break;
+                break;//这个循环一定会结束吗？
             }
             iterationTime++;
         }
