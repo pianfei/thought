@@ -9,9 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <inttypes.h>
-//#include "algorithm.h"
-#include "jtype.h"
+#include "algorithm.h"
 
 typedef struct {
     int row, col;

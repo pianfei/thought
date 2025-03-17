@@ -7,6 +7,7 @@
 
 #ifndef ALGORITHM_H_
 #define ALGORITHM_H_
+#include "jtype.h"
 
 void Cardiology1(int r, int c);
 int Cardiology2(int R, int C) ;
