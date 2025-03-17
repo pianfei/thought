@@ -22,26 +22,25 @@ typedef struct {
 } AnsStru;
 
 // 计算位置加上v后的新位置
-Pair rcAdd(Pair rc, int v, int c) {
-    rc.row += v / c;
+void rcAdd(Pair *pIn, Pair *pOut, int c) {
+    int v;
+    v = pOut->row;
+    pOut->row = pIn->row + v/c;
     v %= c;
-    rc.col += v;
-    if (rc.col >= c) {
-        rc.col %= c;
-        rc.row += 1;
+    pOut->col = pIn->col+v;
+    if (pIn->col>=c) {
+        pOut->col = pIn->col%c;
+        pOut->row = pIn->row+1;
     }
-    return rc;
 }
 
 // 计算第p列起始位置
-Pair pthStart(long p, long r, long c) {
-    Pair ret;
+void pthStart(Pair *pStart,long p, long r, long c) {
     //如果p=2，也就是做为第3列被收起了，前面收了2列,假设是7行3列，那么前面收了14个数字
     //重排后，收到的那一列的起始位置位于第14号位置（从0开始数起）
     //即第14/3=4行，第14%3=2列
-    ret.row = (r * p) / c;
-    ret.col = (r * p) % c;
-    return ret;
+    pStart->row = (r * p) / c;
+    pStart->col = (r * p) % c;
 }
 
 // 计算距离中心点位置的曼哈顿距离
@@ -61,13 +60,18 @@ void Cardiology1(int r, int c)
     AnsStru* stablePos;
     Pair start = {0, 0};
     Pair end = {r - 1, c - 1};
+    Pair restart = {0, 0};
+    Pair *pReStart = &restart;
+//    Pair *pStart = &start;
+//    Pair *pEnd = &end;
+    int i;
 
     stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
 
-    for(int i=0;i<c;i++)
+    for(i=0;i<c;i++)
     {
         int iterationTime = 0;
-        Pair pStart = pthStart(i, r, c);
+        pthStart(pReStart,i, r, c);
 
         start.col = 0;
         start.row = 0;
@@ -78,8 +82,8 @@ void Cardiology1(int r, int c)
             Pair oS = start, oE = end;
 
             // 更新start和end (范围收缩)
-            start = rcAdd(pStart, start.row, c);
-            end = rcAdd(pStart, end.row, c);
+            rcAdd(pReStart, &start, c);
+            rcAdd(pReStart, &end, c);
 
             if (oS.row == start.row && oS.col == start.col &&
                 oE.row == end.row && oE.col == end.col) {
