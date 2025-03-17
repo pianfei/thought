@@ -56,10 +56,12 @@ long calDist(Pair rc, long r, long c) {
     return minr + minc;
 }
 
-void Cardiology1(int r, int c) {
+void Cardiology1(int r, int c)
+{
     AnsStru* stablePos;
     Pair start = {0, 0};
     Pair end = {r - 1, c - 1};
+
     stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
 
     for(int i=0;i<c;i++)
