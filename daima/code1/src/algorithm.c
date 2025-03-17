@@ -30,12 +30,12 @@ void rcAdd(Pair *pIn, Pair *pOut, int c) {
     pOut->row = pIn->row;
     pOut->col = pIn->col;
 
-    pOut->row += v/c;//为什么这里加了
+    pOut->row += v/c;//为什么这里加了，每数c个相当于把这张牌往下移动一行
     v %= c;
     pOut->col += v;
     if (pOut->col>=c) {
         pOut->col %= c;
-        pOut->row += 1;//这里还要+1
+        pOut->row += 1;//这里还要+1，这里加的是v取整后剩下的，看剩下的是不是能填充满这张牌所在行的右边空位
     }
 
 }
