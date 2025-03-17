@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     int a;
     AgiMember *pDemo;
 
+    setvbuf(stdout, NULL, _IONBF, 0);
     a = 2;
     printf("Hello World %d\n",a);
     Cardiology1(7,3);

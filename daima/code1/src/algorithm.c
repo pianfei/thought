@@ -25,12 +25,15 @@ typedef struct {
 void rcAdd(Pair *pIn, Pair *pOut, int c) {
     int v;
     v = pOut->row;
-    pOut->row = pIn->row + v/c;
+    pOut->row = pIn->row;
+    pOut->col = pIn->col;
+
+    pOut->row += v/c;
     v %= c;
-    pOut->col = pIn->col+v;
-    if (pIn->col>=c) {
-        pOut->col = pIn->col%c;
-        pOut->row = pIn->row+1;
+    pOut->col += v;
+    if (pOut->col>=c) {
+        pOut->col %= c;
+        pOut->row += 1;
     }
 }
 
@@ -55,7 +58,7 @@ long calDist(Pair rc, long r, long c) {
     return minr + minc;
 }
 
-void Cardiology1k(int r, int c)
+void Cardiology1(int r, int c)
 {
     AnsStru* stablePos;
     Pair start = {0, 0};
@@ -139,7 +142,7 @@ Pair rcAdd1(Pair rc, int v, int c) {
     return rc;
 }
 
-void Cardiology1(int r, int c)
+void Cardiology1g(int r, int c)
 {
     AnsStru* stablePos;
     Pair start = {0, 0};
@@ -170,8 +173,11 @@ void Cardiology1(int r, int c)
             start = rcAdd1(*pStart, start.row, c);
             end = rcAdd1(*pStart, end.row, c);
 
+            //pStart外面是没有改变的，
             rcAdd(pStart, &aRecord[0], c);
             rcAdd(pStart, &aRecord[1], c);
+//            log_a("start %d %d",start.row,start.col);
+//            log_a("record %d %d",aRecord[0].row,aRecord[0].col);
             assert(aRecord[0].row==start.row);
             assert(aRecord[0].col==start.col);
             assert(aRecord[1].row==end.row);
