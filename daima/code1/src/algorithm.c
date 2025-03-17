@@ -56,7 +56,7 @@ long calDist(Pair rc, long r, long c) {
     return minr + minc;
 }
 
-void Cardiology1(int r, int c) {
+void Cardiology1k(int r, int c) {
     AnsStru* stablePos;
     Pair start = {0, 0};
     Pair end = {r - 1, c - 1};
@@ -86,6 +86,66 @@ void Cardiology1(int r, int c) {
             stablePos[i].rc.col = -1;
         }
         stablePos[i].iterationTimes = iterationTime;
+    }
+
+    int ans = -1;
+    long minDist = LONG_MAX;
+
+    for (long i = 0; i < c; ++i) {
+        Pair pi = stablePos[i].rc;
+        if (pi.row != -1 && pi.col != -1) {
+            long dist = calDist(pi, r, c);
+            if (dist < minDist || (dist == minDist && i < ans)) {
+                minDist = dist;
+                ans = i;
+            }
+        }
+    }
+
+    if (ans != -1) {
+        log_a("%d %d %d %d",
+            ans + 1,
+            stablePos[ans].rc.row + 1,
+            stablePos[ans].rc.col + 1,
+            stablePos[ans].iterationTimes);
+    } else {
+        log_a("No stable position found.");
+    }
+
+    RawFree(stablePos);
+}
+
+void Cardiology1(int r, int c) {
+    AnsStru* stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
+    if (!stablePos) {
+        log_a("Memory allocation failed\n");
+        return;
+    }
+
+    for (long p = 0; p < c; ++p) {
+        Pair start = {0, 0}, end = {r - 1, c - 1};
+        int iterationTime = 0;
+        Pair pStart = pthStart(p, r, c);
+        while (1) {
+            Pair oS = start, oE = end;
+
+            // 更新start和end (范围收缩)
+            start = rcAdd(pStart, start.row, c);
+            end = rcAdd(pStart, end.row, c);
+
+            if (oS.row == start.row && oS.col == start.col &&
+                oE.row == end.row && oE.col == end.col) {
+                break;
+            }
+            iterationTime++;
+        }
+        if (start.row == end.row && start.col == end.col) {
+            stablePos[p].rc = start;
+        } else {
+            stablePos[p].rc.row = -1;
+            stablePos[p].rc.col = -1;
+        }
+        stablePos[p].iterationTimes = iterationTime;
     }
 
     int ans = -1;
