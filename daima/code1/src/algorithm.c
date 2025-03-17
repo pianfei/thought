@@ -55,7 +55,7 @@ long calDist(Pair rc, long r, long c) {
     return minr + minc;
 }
 
-void Cardiology1(int r, int c)
+void Cardiology1k(int r, int c)
 {
     AnsStru* stablePos;
     Pair start = {0, 0};
@@ -126,6 +126,99 @@ void Cardiology1(int r, int c)
 
     RawFree(stablePos);
 }
+
+// 计算位置加上v后的新位置
+Pair rcAdd1(Pair rc, int v, int c) {
+    rc.row += v / c;
+    v %= c;
+    rc.col += v;
+    if (rc.col >= c) {
+        rc.col %= c;
+        rc.row += 1;
+    }
+    return rc;
+}
+
+void Cardiology1(int r, int c)
+{
+    AnsStru* stablePos;
+    Pair start = {0, 0};
+    Pair end = {r - 1, c - 1};
+    Pair restart = {0, 0};
+    Pair *pStart = &restart;
+    int i;
+    Pair aRecord[2];
+
+    stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
+
+    for(i=0;i<c;i++)
+    {
+        int iterationTime = 0;
+        pthStart(pStart,i, r, c);
+
+        start.col = 0;
+        start.row = 0;
+        end.row = r-1;
+        end.col = c-1;
+        aRecord[0] = start;
+        aRecord[1] = end;
+
+        while (1) {
+            Pair oS = start, oE = end;
+
+            // 更新start和end (范围收缩)
+            start = rcAdd1(*pStart, start.row, c);
+            end = rcAdd1(*pStart, end.row, c);
+
+            rcAdd(pStart, &aRecord[0], c);
+            rcAdd(pStart, &aRecord[1], c);
+            assert(aRecord[0].row==start.row);
+            assert(aRecord[0].col==start.col);
+            assert(aRecord[1].row==end.row);
+            assert(aRecord[1].col==end.col);
+
+            if (oS.row == start.row && oS.col == start.col &&
+                oE.row == end.row && oE.col == end.col) {
+                break;
+            }
+            iterationTime++;
+        }
+        if (start.row == end.row && start.col == end.col) {
+            stablePos[i].rc = start;
+        } else {
+            stablePos[i].rc.row = -1;
+            stablePos[i].rc.col = -1;
+        }
+        stablePos[i].iterationTimes = iterationTime;
+    }
+
+    int ans = -1;
+    long minDist = LONG_MAX;
+
+    for (long i = 0; i < c; ++i) {
+        Pair pi = stablePos[i].rc;
+        if (pi.row != -1 && pi.col != -1) {
+            long dist = calDist(pi, r, c);
+            if (dist < minDist || (dist == minDist && i < ans)) {
+                minDist = dist;
+                ans = i;
+            }
+        }
+    }
+
+    if (ans != -1) {
+        log_a("%d %d %d %d",
+            ans + 1,
+            stablePos[ans].rc.row + 1,
+            stablePos[ans].rc.col + 1,
+            stablePos[ans].iterationTimes);
+    } else {
+        log_a("No stable position found.");
+    }
+
+    RawFree(stablePos);
+}
+
 
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)>(b)?(a):(b))
