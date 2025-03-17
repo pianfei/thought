@@ -23,7 +23,10 @@
 typedef struct AgiMember AgiMember;
 struct AgiMember
 {
-
+    u8 bOpen;
 };
+
+AgiMember *AgiOpen(int myId);
+void DemoTask1(AgiMember *pDemo);
 
 #endif /* AGI_H_ */
