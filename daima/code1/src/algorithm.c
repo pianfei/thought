@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "algorithm.h"
+#include "link.h"
 
 typedef struct {
     int row, col;
@@ -56,7 +57,7 @@ long calDist(Pair rc, long r, long c) {
 }
 
 void Cardiology1(int r, int c) {
-    AnsStru* stablePos = (AnsStru*)malloc(sizeof(AnsStru) * c);
+    AnsStru* stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
     if (!stablePos) {
         log_a("Memory allocation failed\n");
         return;
@@ -112,7 +113,7 @@ void Cardiology1(int r, int c) {
         log_a("No stable position found.");
     }
 
-    free(stablePos);
+    RawFree(stablePos);
 }
 
 #define MIN(a,b) ((a)<(b)?(a):(b))

@@ -45,6 +45,11 @@ void* RawMalloc(u32 size)
     return p;
 }
 
+void RawFree(void *p)
+{
+    free(p);
+}
+
 void* Malloc1(AgiMember* pDemo,u32 size)
 {
     void *p = malloc(size);
