@@ -57,16 +57,15 @@ long calDist(Pair rc, long r, long c) {
 }
 
 void Cardiology1(int r, int c) {
-    AnsStru* stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
-    if (!stablePos) {
-        log_a("Memory allocation failed\n");
-        return;
-    }
+    AnsStru* stablePos;
+    Pair start = {0, 0};
+    Pair end = {r - 1, c - 1};
+    stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
 
-    for (long p = 0; p < c; ++p) {
-        Pair start = {0, 0}, end = {r - 1, c - 1};
+    for(int i=0;i<c;i++)
+    {
         int iterationTime = 0;
-        Pair pStart = pthStart(p, r, c);
+        Pair pStart = pthStart(i, r, c);
         while (1) {
             Pair oS = start, oE = end;
 
@@ -81,12 +80,12 @@ void Cardiology1(int r, int c) {
             iterationTime++;
         }
         if (start.row == end.row && start.col == end.col) {
-            stablePos[p].rc = start;
+            stablePos[i].rc = start;
         } else {
-            stablePos[p].rc.row = -1;
-            stablePos[p].rc.col = -1;
+            stablePos[i].rc.row = -1;
+            stablePos[i].rc.col = -1;
         }
-        stablePos[p].iterationTimes = iterationTime;
+        stablePos[i].iterationTimes = iterationTime;
     }
 
     int ans = -1;
