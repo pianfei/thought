@@ -125,14 +125,16 @@ void Cardiology1(int r, int c)
 //            if (oE.row == endst.row && oE.col == endst.col) {
 //                break;
 //            }
-            if (oS.row == first.row && oS.col == first.col) {
-                break;
-            }
-
-//            if (oS.row == first.row && oS.col == first.col &&
-//                oE.row == endst.row && oE.col == endst.col) {
-//                break;//这个循环一定会结束吗？
+//            if (oS.row == first.row && oS.col == first.col) {
+//                break;
 //            }
+
+            if (oS.row == first.row && oS.col == first.col &&
+                oE.row == endst.row && oE.col == endst.col)
+            {
+                log_a("");//在6 2结束循环？
+                break;//这个循环一定会结束吗？
+            }
             iterationTime++;
         }
         if (first.row == endst.row && first.col == endst.col) {
