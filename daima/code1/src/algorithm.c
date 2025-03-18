@@ -53,11 +53,12 @@ void pthStart(Pair *pStart,long p, long r, long c) {
     pStart->k = p;
 }
 
-// 计算距离中心点位置的曼哈顿距离
+// 计算距离中心点位置的最小距离
 long calDist(Pair rc, long r, long c) {
     long mr = r / 2, mc = c / 2;
     long minr = labs(rc.row - mr);
     long minc = labs(rc.col - mc);
+    //偶数时中间有2个点，还要计算另一个点的距离，取最小的
     if (r % 2 == 0 && labs(rc.row - (mr - 1)) < minr)
         minr = labs(rc.row - (mr - 1));
     if (c % 2 == 0 && labs(rc.col - (mc - 1)) < minc)
@@ -73,6 +74,7 @@ void Cardiology1(int r, int c)
     Pair start = {0, 0};
     int j,i;
     int iterationTime = 0;
+    Pair oS,oE;
    // u8 aBuf[21];
 
     stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
@@ -99,7 +101,8 @@ void Cardiology1(int r, int c)
       //  log_a("restart:%d %d",start.row,start.col);
 
         while (1) {
-            Pair oS = first, oE = endst;
+            oS = first;
+            oE = endst;
 
             rcAdd(&start, &first, c);
             rcAdd(&start, &endst, c);
@@ -159,10 +162,13 @@ void Cardiology1(int r, int c)
     int ans = -1;
     long minDist = LONG_MAX;
 
-    for (long i = 0; i < c; ++i) {
+    for (i=0;i<c;i++) {
         Pair pi = stablePos[i].rc;
         if (pi.row != -1 && pi.col != -1) {
             long dist = calDist(pi, r, c);
+            if(dist == minDist && i < ans){
+                assert(0);//这个条件不知道是什么意思，应该也不会进的吧
+            }
             if (dist < minDist || (dist == minDist && i < ans)) {
                 minDist = dist;
                 ans = i;
