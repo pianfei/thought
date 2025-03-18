@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     setvbuf(stdout, NULL, _IONBF, 0);
     a = 2;
     printf("Hello World %d\n",a);
-    Cardiology1(9,1);
+    Cardiology1(7,3);
 //    Cardiology2(8,3);
 //    Cardiology1(8,3);
 //    printf("\n");

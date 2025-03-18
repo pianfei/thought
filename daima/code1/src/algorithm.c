@@ -89,6 +89,7 @@ void Cardiology1(int r, int c)
         pthStart(&start,j, r, c);
 
         //为什么要选择开头和结尾这两个数字模拟，把这个代码提到上面去为什么不行
+        //只用一个数字模拟行不行
         first.col = 0;
         first.row = 0;
         endst.row = r-1;
@@ -115,10 +116,19 @@ void Cardiology1(int r, int c)
                 log_a("end:%d %d",endst.row,endst.col);
             }
 
-            if (oS.row == first.row && oS.col == first.col &&
-                oE.row == endst.row && oE.col == endst.col) {
-                break;//这个循环一定会结束吗？
+            //测了一下只用一个数字模拟，选择开头和结尾，打印不一样，但是最后结果是对的
+            //如何理解iterationTime 表示任意牌达到该稳定位置所需的最大迭代次数。
+//            if (oE.row == endst.row && oE.col == endst.col) {
+//                break;
+//            }
+            if (oS.row == first.row && oS.col == first.col) {
+                break;
             }
+
+//            if (oS.row == first.row && oS.col == first.col &&
+//                oE.row == endst.row && oE.col == endst.col) {
+//                break;//这个循环一定会结束吗？
+//            }
             iterationTime++;
         }
         if (first.row == endst.row && first.col == endst.col) {
