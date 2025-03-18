@@ -73,13 +73,14 @@ void Cardiology1(int r, int c)
     Pair start = {0, 0};
     int j,i;
     int iterationTime = 0;
-    u8 aBuf[21];
+   // u8 aBuf[21];
 
     stablePos = (AnsStru*)RawMalloc(sizeof(AnsStru) * c);
-    for(i=0;i<r*c;i++)
-    {
-        aBuf[i] = i;
-    }
+
+//    for(i=0;i<r*c;i++)
+//    {
+//        aBuf[i] = i;
+//    }
 
     for(j=0;j<c;j++)
     {
@@ -102,19 +103,20 @@ void Cardiology1(int r, int c)
 
             rcAdd(&start, &first, c);
             rcAdd(&start, &endst, c);
-            if(j==2){
-                if(iterationTime==0){
-                    for(i=0;i<first.row*c+first.col;i++)
-                    {
-                        log_b("%d ",aBuf[i]);
-                        if(i%c==c-1){
-                            log_a("");
-                        }
-                    }
-                }
-                log_a("start:%d %d",first.row,first.col);
-                log_a("end:%d %d",endst.row,endst.col);
-            }
+
+//            if(j==2){
+//                if(iterationTime==0){
+//                    for(i=0;i<first.row*c+first.col;i++)
+//                    {
+//                        log_b("%d ",aBuf[i]);
+//                        if(i%c==c-1){
+//                            log_a("");
+//                        }
+//                    }
+//                }
+//                log_a("start:%d %d",first.row,first.col);
+//                log_a("end:%d %d",endst.row,endst.col);
+//            }
 
             //测了一下只用一个数字模拟，选择开头和结尾，打印不一样，但是最后结果是对的
             //如何理解s表示任意牌达到该稳定位置所需的最大迭代次数。
@@ -133,7 +135,7 @@ void Cardiology1(int r, int c)
                 oE.row == endst.row && oE.col == endst.col)
             {
                 //6 2不是在中央啊
-                log_a("");//在6 2结束循环？
+             //   log_a("");//在6 2结束循环？
                 break;//这个循环一定会结束吗？
             }
             //最大迭代次数为什么只需加个endst判断就可以了，而不用把这列的数字都模拟一遍
@@ -142,6 +144,7 @@ void Cardiology1(int r, int c)
         if (first.row == endst.row && first.col == endst.col) {
             //记录first最后稳定的坐标，感觉是对于不同的j，first不一定收敛到中央
             //出题人是想让你找出收敛到中央的那个j
+            //看错了，他这个判断是first和endst收敛到同一个坐标
             stablePos[j].rc = first;
         } else {
             stablePos[j].rc.row = -1;
