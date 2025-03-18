@@ -89,31 +89,27 @@ void Cardiology1(int r, int c)
         first.row = 0;
         endst.row = r-1;//最后一个数字
         endst.col = c-1;
-        log_a("restart:%d %d",start.row,start.col);
+      //  log_a("restart:%d %d",start.row,start.col);
 
         while (1) {
             Pair oS = first, oE = endst;
 
             rcAdd(&start, &first, c);
             rcAdd(&start, &endst, c);
-            if(j==2){
-                if(iterationTime==0){
-                    for(i=0;i<first.row*c+first.col;i++)
-                    {
-                        log_b("%d ",aBuf[i]);
-                        if(i%c==c-1){
-                            log_a("");
-                        }
-                    }
-                }
-                log_a("start:%d %d",first.row,first.col);
-                log_a("end:%d %d",endst.row,endst.col);
-            }
-//            if(oS.row == start.row && oS.col == start.col)
-//            {
-//                assert(oE.row == end.row);
-//                assert(oE.col == end.col);
+//            if(j==2){
+//                if(iterationTime==0){
+//                    for(i=0;i<first.row*c+first.col;i++)
+//                    {
+//                        log_b("%d ",aBuf[i]);
+//                        if(i%c==c-1){
+//                            log_a("");
+//                        }
+//                    }
+//                }
+//                log_a("start:%d %d",first.row,first.col);
+//                log_a("end:%d %d",endst.row,endst.col);
 //            }
+
             if (oS.row == first.row && oS.col == first.col &&
                 oE.row == endst.row && oE.col == endst.col) {
                 break;//这个循环一定会结束吗？
@@ -150,7 +146,7 @@ void Cardiology1(int r, int c)
             stablePos[ans].rc.col + 1,
             stablePos[ans].iterationTimes);
     } else {
-        log_a("No stable position found.");
+        log_a("No stable position found.");//c=1的时候会进这里
     }
 
     RawFree(stablePos);
