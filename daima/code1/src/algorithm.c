@@ -88,7 +88,7 @@ void Cardiology1(int r, int c)
         //当c=1时，只有一列，重排不变，start必然是0，0
         pthStart(&start,j, r, c);
 
-        //为什么要选择开头和结尾这两个数字模拟，把这个代码提到上面去为什么不行
+        //为什么要选择开头和结尾这两个数字模拟，原题似乎要求把这一列中的所有数字都模拟一遍
         //只用一个数字模拟行不行
         first.col = 0;
         first.row = 0;
@@ -132,12 +132,16 @@ void Cardiology1(int r, int c)
             if (oS.row == first.row && oS.col == first.col &&
                 oE.row == endst.row && oE.col == endst.col)
             {
+                //6 2不是在中央啊
                 log_a("");//在6 2结束循环？
                 break;//这个循环一定会结束吗？
             }
+            //最大迭代次数为什么只需加个endst判断就可以了，而不用把这列的数字都模拟一遍
             iterationTime++;
         }
         if (first.row == endst.row && first.col == endst.col) {
+            //记录first最后稳定的坐标，感觉是对于不同的j，first不一定收敛到中央
+            //出题人是想让你找出收敛到中央的那个j
             stablePos[j].rc = first;
         } else {
             stablePos[j].rc.row = -1;
