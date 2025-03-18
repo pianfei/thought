@@ -24,12 +24,15 @@ typedef struct {
 } AnsStru;
 
 // 计算位置加上v后的新位置
-void rcAdd(Pair *pIn, Pair *pOut, int c) {
+void rcAdd(Pair *pStart, Pair *pOut, int c) {
     int v;
     v = pOut->row;
-    pOut->row = pIn->row;
-    pOut->col = pIn->col;
 
+    pOut->row = pStart->row;
+    pOut->col = pStart->col;
+
+    //第一次增量是start+row/c+(1')-row
+    //第二次增量是start+(start+row/c+(1'))/c+(1'')-(start+row/c+(1'))
     pOut->row += v/c;//为什么这里加了，每数c个相当于把这张牌往下移动一行
     v %= c;
     pOut->col += v;
@@ -82,13 +85,15 @@ void Cardiology1(int r, int c)
     {
         iterationTime = 0;
 
+        //当c=1时，只有一列，重排不变，start必然是0，0
         pthStart(&start,j, r, c);
 
-        //第一个数字
+        //为什么要选择开头和结尾这两个数字模拟，把这个代码提到上面去为什么不行
         first.col = 0;
         first.row = 0;
-        endst.row = r-1;//最后一个数字
+        endst.row = r-1;
         endst.col = c-1;
+
       //  log_a("restart:%d %d",start.row,start.col);
 
         while (1) {
@@ -96,19 +101,19 @@ void Cardiology1(int r, int c)
 
             rcAdd(&start, &first, c);
             rcAdd(&start, &endst, c);
-//            if(j==2){
-//                if(iterationTime==0){
-//                    for(i=0;i<first.row*c+first.col;i++)
-//                    {
-//                        log_b("%d ",aBuf[i]);
-//                        if(i%c==c-1){
-//                            log_a("");
-//                        }
-//                    }
-//                }
-//                log_a("start:%d %d",first.row,first.col);
-//                log_a("end:%d %d",endst.row,endst.col);
-//            }
+            if(j==2){
+                if(iterationTime==0){
+                    for(i=0;i<first.row*c+first.col;i++)
+                    {
+                        log_b("%d ",aBuf[i]);
+                        if(i%c==c-1){
+                            log_a("");
+                        }
+                    }
+                }
+                log_a("start:%d %d",first.row,first.col);
+                log_a("end:%d %d",endst.row,endst.col);
+            }
 
             if (oS.row == first.row && oS.col == first.col &&
                 oE.row == endst.row && oE.col == endst.col) {
