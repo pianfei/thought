@@ -146,9 +146,12 @@ void Cardiology1(int r, int c)
             //出题人是想让你找出收敛到中央的那个j
             //看错了，他这个判断是first和endst收敛到同一个坐标
             stablePos[j].rc = first;
+          //  log_a("j %d end same %d %d",j,first.row,first.col);
         } else {
             stablePos[j].rc.row = -1;
             stablePos[j].rc.col = -1;
+            log_a("j %d not same %d %d %d %d",j,
+                    first.row,first.col,endst.row,endst.col);
         }
         stablePos[j].iterationTimes = iterationTime;
     }
