@@ -65,9 +65,9 @@ long calDist(Pair rc, long r, long c) {
 void Cardiology1(int r, int c)
 {
     AnsStru* stablePos;
+    Pair first = {0, 0};
+    Pair endst = {r - 1, c - 1};
     Pair start = {0, 0};
-    Pair end = {r - 1, c - 1};
-    Pair restart = {0, 0};
     int j,i;
     int iterationTime = 0;
     u8 aBuf[21];
@@ -82,24 +82,23 @@ void Cardiology1(int r, int c)
     {
         iterationTime = 0;
 
-        pthStart(&restart,j, r, c);
+        pthStart(&start,j, r, c);
 
-        //start是第一个数字，end是最后一个数字
-        start.col = 0;
-        start.row = 0;
-        end.row = r-1;
-        end.col = c-1;
-        log_a("restart:%d %d",restart.row,restart.col);
+        //第一个数字
+        first.col = 0;
+        first.row = 0;
+        endst.row = r-1;//最后一个数字
+        endst.col = c-1;
+        log_a("restart:%d %d",start.row,start.col);
 
         while (1) {
-            Pair oS = start, oE = end;
+            Pair oS = first, oE = endst;
 
-            //这个start和end到底代表的是什么呀
-            rcAdd(&restart, &start, c);
-            rcAdd(&restart, &end, c);
+            rcAdd(&start, &first, c);
+            rcAdd(&start, &endst, c);
             if(j==2){
                 if(iterationTime==0){
-                    for(i=0;i<start.row*c+start.col;i++)
+                    for(i=0;i<first.row*c+first.col;i++)
                     {
                         log_b("%d ",aBuf[i]);
                         if(i%c==c-1){
@@ -107,18 +106,22 @@ void Cardiology1(int r, int c)
                         }
                     }
                 }
-                log_a("start:%d %d",start.row,start.col);
-                log_a("end:%d %d",end.row,end.col);
+                log_a("start:%d %d",first.row,first.col);
+                log_a("end:%d %d",endst.row,endst.col);
             }
-
-            if (oS.row == start.row && oS.col == start.col &&
-                oE.row == end.row && oE.col == end.col) {
+//            if(oS.row == start.row && oS.col == start.col)
+//            {
+//                assert(oE.row == end.row);
+//                assert(oE.col == end.col);
+//            }
+            if (oS.row == first.row && oS.col == first.col &&
+                oE.row == endst.row && oE.col == endst.col) {
                 break;//这个循环一定会结束吗？
             }
             iterationTime++;
         }
-        if (start.row == end.row && start.col == end.col) {
-            stablePos[j].rc = start;
+        if (first.row == endst.row && first.col == endst.col) {
+            stablePos[j].rc = first;
         } else {
             stablePos[j].rc.row = -1;
             stablePos[j].rc.col = -1;

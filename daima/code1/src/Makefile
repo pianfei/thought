@@ -16,7 +16,7 @@ LIBS = -lpthread -lrt -lreadline
 
 TARGET=../code1
 CC = gcc
-CCFLAGS=-g -Wall ${LIBS} ${GTK_INC}
+CCFLAGS=-g -Wall ${LIBS} 
 
 
 all:${TARGET}
