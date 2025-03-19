@@ -26,7 +26,8 @@ typedef struct {
 // 计算位置加上v后的新位置
 void rcAdd(Pair *pStart, Pair *pOut, int c) {
     int v;
-    v = pOut->row;
+
+    v = pOut->row;//初始时v=start
 
     pOut->row = pStart->row;
     pOut->col = pStart->col;
@@ -40,6 +41,10 @@ void rcAdd(Pair *pStart, Pair *pOut, int c) {
      * 2.row在迭代过程中是单调递增的
      * 3.一旦Δ=0，此后迭代中row都不会改变
      */
+
+    //当取最后一列时，start的行最大取r*(c-1)/c，此时列为r*(c-1)%c
+    //start+(row+Δ)/c<=(r*(c-1)+r)/c=r,只要证明<=取到=r时，(1)只能取0，就完成了上限的证明
+
     pOut->row += v/c;//为什么这里加了，每数c个相当于把这张牌往下移动一行
     v %= c;
     pOut->col += v;
