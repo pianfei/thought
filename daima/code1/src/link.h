@@ -7,17 +7,22 @@
 
 #ifndef LINK_H_
 #define LINK_H_
-#include "agi.h"
+#include "jtype.h"
 
-void* Malloc2(AgiMember* pDemo,u32 size);
-void Free2(AgiMember* pDemo,void *p);
+struct MemManager
+{
+    AgiMember *pAgi;
+};
 
-void* Realloc2(AgiMember* pDemo,void *p,u32 size,u32 old_size);
+void* Malloc2(MemManager* pMem,u32 size);
+void Free2(MemManager* pMem,void *p);
+
+void* Realloc2(MemManager* pMem,void *p,u32 size,u32 old_size);
 void* RawMalloc(u32 size);
 void RawFree(void *p);
-void* MallocX(AgiMember* pDemo,u32 size);
+void* MallocX(MemManager* pMem,u32 size);
 
-void* Malloc1(AgiMember* pDemo,u32 size);
-void Free1(AgiMember* pDemo,void *p);
+void* Malloc1(MemManager* pMem,u32 size);
+void Free1(MemManager* pMem,void *p);
 
 #endif /* LINK_H_ */

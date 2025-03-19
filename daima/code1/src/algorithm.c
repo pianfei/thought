@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "algorithm.h"
-#include "link.h"
+#include "agi.h"
 
 typedef struct {
     int row, col;
