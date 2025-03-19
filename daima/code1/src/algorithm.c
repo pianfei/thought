@@ -31,8 +31,15 @@ void rcAdd(Pair *pStart, Pair *pOut, int c) {
     pOut->row = pStart->row;
     pOut->col = pStart->col;
 
-    //第一次增量是start+row/c+(1')-row
-    //第二次增量是start+(start+row/c+(1'))/c+(1'')-(start+row/c+(1'))
+    //第一次增量是start+row/c+(1')-row = Δ
+    //第二次增量是start+(row+Δ)/c+(1'')-(start+row/c+(1'))
+
+    /*
+     * 三点保证：
+     * 1.start+(row+Δ)/c+(1)存在上限
+     * 2.row在迭代过程中是单调递增的
+     * 3.一旦Δ=0，此后迭代中row都不会改变
+     */
     pOut->row += v/c;//为什么这里加了，每数c个相当于把这张牌往下移动一行
     v %= c;
     pOut->col += v;
