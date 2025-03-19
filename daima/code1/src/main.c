@@ -28,7 +28,9 @@ int main(int argc, char *argv[])
     Cardiology2(8,3);
     Cardiology1(8,3);
 //    printf("\n");
-    Cardiology1(95,912669);//456335 48 456335 2
+   // Cardiology1(95,912669);//456335 48 456335 2
+    Cardiology1(6666,966);
+    Cardiology2(6666,966);
 
     //cardiology1(7,3);
     //cardiology2();
