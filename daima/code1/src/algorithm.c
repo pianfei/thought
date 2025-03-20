@@ -46,8 +46,9 @@ void rcAdd(Pair *pStart, Pair *pOut, int c) {
     //start+(row+Δ)/c<=(r*(c-1)+r)/c=r,只要证明<=取到=r时，(1)只能取0，就完成了上限的证明
     //从操作上知道无论怎么迭代都是row+Δ<r，但是操作到形式的转换没想明白
     //一开始选定牌所在的row<r,重排时前面最多放(c-1)*r+row<c*r
-    //所以这样牌所在行<c*r/c = r,应该这样证明
+    //所以这张牌所在行<c*r/c = r,应该这样证明
 
+    //这次row = start + 上次row/c
     pOut->row += v/c;//为什么这里加了，每数c个相当于把这张牌往下移动一行
     v %= c;
     pOut->col += v;
